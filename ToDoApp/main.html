@@ -1,0 +1,37 @@
+﻿<h2>Current Todos</h2>
+    <div >
+        <div>{{ error }}</div>
+        <div ng-show="todos">
+            
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Todo</th>
+                            <th>Description</th>
+                            <th>Last Completed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="cursor: pointer" ng-repeat="t in todos">
+                            <td ng-click="selectTodo(t.ToDoId)">{{t.Title}}</td>
+                            <td>{{t.Description}}</td>
+                            <td><span am-time-ago="t.LastCompleted"></span></td>
+                            <td ng-click="deleteTodo(t.ToDoId)"><span class="glyphicon glyphicon-remove-circle" tooltip-placement="left" tooltip="Delete Todo: {{t.Title}}"></span></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+
+        <a href="#/newTodo" class="btn btn-success">Add a new Todo</a>
+        <div>
+            <form name="newEvent" ng-submit="addEvent()">
+                <input type="text" ng-model="currentTodo" />
+                <input type="text" ng-model="todoEvent.comment" />
+                <input type="text" ng-model="todoEvent.rating" />
+                <input type="datetime-local" ng-model="todoEvent.occurredDttm" />
+                <input type="submit" value="Record Event" />
+
+            </form>
+        </div>
+    </div>

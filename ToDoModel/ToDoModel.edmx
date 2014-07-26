@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ToDoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ToDoModelStoreContainer">
+    <EntitySet Name="Users" EntityType="ToDoModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ToDos" EntityType="ToDoModel.Store.ToDos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ToDoEvents" EntityType="ToDoModel.Store.ToDoEvents" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserToDo" Association="ToDoModel.Store.UserToDo">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ToDo" EntitySet="ToDos" />
+    </AssociationSet>
+    <AssociationSet Name="ToDoToDoEvent" Association="ToDoModel.Store.ToDoToDoEvent">
+      <End Role="ToDo" EntitySet="ToDos" />
+      <End Role="ToDoEvent" EntitySet="ToDoEvents" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JoinDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ToDos">
+    <Key>
+      <PropertyRef Name="ToDoId" />
+    </Key>
+    <Property Name="ToDoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ToDoEvents">
+    <Key>
+      <PropertyRef Name="ToDoEventId" />
+    </Key>
+    <Property Name="ToDoEventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OccurredDttm" Type="datetime" Nullable="false" />
+    <Property Name="Rating" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ToDoId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserToDo">
+    <End Role="User" Type="ToDoModel.Store.Users" Multiplicity="1" />
+    <End Role="ToDo" Type="ToDoModel.Store.ToDos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ToDo">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ToDoToDoEvent">
+    <End Role="ToDo" Type="ToDoModel.Store.ToDos" Multiplicity="1" />
+    <End Role="ToDoEvent" Type="ToDoModel.Store.ToDoEvents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToDo">
+        <PropertyRef Name="ToDoId" />
+      </Principal>
+      <Dependent Role="ToDoEvent">
+        <PropertyRef Name="ToDoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ToDoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ToDoContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="ToDoModel.User" />
+          <EntitySet Name="ToDos" EntityType="ToDoModel.ToDo" />
+          <EntitySet Name="ToDoEvents" EntityType="ToDoModel.ToDoEvent" />
+          <AssociationSet Name="UserToDo" Association="ToDoModel.UserToDo">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ToDo" EntitySet="ToDos" />
+          </AssociationSet>
+          <AssociationSet Name="ToDoToDoEvent" Association="ToDoModel.ToDoToDoEvent">
+            <End Role="ToDo" EntitySet="ToDos" />
+            <End Role="ToDoEvent" EntitySet="ToDoEvents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="JoinDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ToDos" Relationship="ToDoModel.UserToDo" FromRole="User" ToRole="ToDo" />
+        </EntityType>
+        <EntityType Name="ToDo">
+          <Key>
+            <PropertyRef Name="ToDoId" />
+          </Key>
+          <Property Name="ToDoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ToDoModel.UserToDo" FromRole="ToDo" ToRole="User" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ToDoEvents" Relationship="ToDoModel.ToDoToDoEvent" FromRole="ToDo" ToRole="ToDoEvent" />
+        </EntityType>
+        <EntityType Name="ToDoEvent">
+          <Key>
+            <PropertyRef Name="ToDoEventId" />
+          </Key>
+          <Property Name="ToDoEventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OccurredDttm" Type="DateTime" Nullable="false" />
+          <Property Name="Rating" Type="String" Nullable="true" />
+          <Property Name="Comment" Type="String" Nullable="true" />
+          <NavigationProperty Name="ToDo" Relationship="ToDoModel.ToDoToDoEvent" FromRole="ToDoEvent" ToRole="ToDo" />
+          <Property Name="ToDoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserToDo">
+          <End Type="ToDoModel.User" Role="User" Multiplicity="1" />
+          <End Type="ToDoModel.ToDo" Role="ToDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ToDo">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ToDoToDoEvent">
+          <End Type="ToDoModel.ToDo" Role="ToDo" Multiplicity="1" />
+          <End Type="ToDoModel.ToDoEvent" Role="ToDoEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDo">
+              <PropertyRef Name="ToDoId" />
+            </Principal>
+            <Dependent Role="ToDoEvent">
+              <PropertyRef Name="ToDoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ToDoModelStoreContainer" CdmEntityContainer="ToDoContext">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(ToDoModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToDos">
+      <EntityTypeMapping TypeName="IsTypeOf(ToDoModel.ToDo)">
+        <MappingFragment StoreEntitySet="ToDos">
+          <ScalarProperty Name="ToDoId" ColumnName="ToDoId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToDoEvents">
+      <EntityTypeMapping TypeName="IsTypeOf(ToDoModel.ToDoEvent)">
+        <MappingFragment StoreEntitySet="ToDoEvents">
+          <ScalarProperty Name="ToDoEventId" ColumnName="ToDoEventId" />
+          <ScalarProperty Name="OccurredDttm" ColumnName="OccurredDttm" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="ToDoId" ColumnName="ToDoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

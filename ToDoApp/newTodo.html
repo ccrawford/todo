@@ -1,0 +1,14 @@
+﻿<div>
+    <h2>Create a new Todo</h2>
+    <form name="newTodo" ng-submit="addTodo()">
+        <div class="form-group">
+            <label for="titleInput">Title</label>
+            <input name="titleInput" type="text" required ng-model="todo.title" class="form-control" placeholder="Title..." />
+        </div>
+        <div class="form-group">
+            <label for="descriptionInput">Description</label>
+            <textarea name="descriptionInput" rows="3" ng-model="todo.description" class="form-control" placeholder="Description..." ></textarea>
+        </div>
+        <input type="submit" value="Add New Todo" class="btn btn-default btn-primary" />
+</form>
+</div>

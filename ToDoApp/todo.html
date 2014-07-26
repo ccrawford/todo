@@ -1,0 +1,27 @@
+﻿<div>
+    {{error}}
+    <div>
+        <h2>{{todo.Title}}</h2>
+    </div>
+    <div><h3>{{todo.Description}}</h3></div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Occurred</th>
+                    <th>Comment</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="todoEvent in todoEvents">
+                    <td>{{todoEvent.OccurredDttm | date:'shortDate' }}</td>
+                    <td><span am-time-ago="todoEvent.OccurredDttm"></span></td>
+                    <td>{{todoEvent.Comment}}</td>
+                    <td>{{todoEvent.Rating}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="#/main">Back to ToDo List</a>
+    </div>
+</div>

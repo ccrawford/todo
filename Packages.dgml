@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="ToDoApp" Label="ToDoApp" Category="Project" />
+    <Node Id="AngularJS.Core 1.2.19" Label="AngularJS.Core 1.2.19" Category="Package" />
+    <Node Id="ToDoWebApi" Label="ToDoWebApi" Category="Project" />
+    <Node Id="EntityFramework 6.0.0" Label="EntityFramework 6.0.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Cors 5.2.0" Label="Microsoft.AspNet.Cors 5.2.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi 5.2.0" Label="Microsoft.AspNet.WebApi 5.2.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi.Client 5.2.0" Label="Microsoft.AspNet.WebApi.Client 5.2.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi.Core 5.2.0" Label="Microsoft.AspNet.WebApi.Core 5.2.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi.Cors 5.2.0" Label="Microsoft.AspNet.WebApi.Cors 5.2.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi.WebHost 5.2.0" Label="Microsoft.AspNet.WebApi.WebHost 5.2.0" Category="Package" />
+    <Node Id="Newtonsoft.Json 5.0.6" Label="Newtonsoft.Json 5.0.6" Category="Package" />
+    <Node Id="ToDoConsole" Label="ToDoConsole" Category="Project" />
+    <Node Id="EntityFramework 6.1.1" Label="EntityFramework 6.1.1" Category="Package" />
+    <Node Id="EntityFramework.SqlServerCompact 6.1.1" Label="EntityFramework.SqlServerCompact 6.1.1" Category="Package" />
+    <Node Id="Microsoft.SqlServer.Compact 4.0.8854.1" Label="Microsoft.SqlServer.Compact 4.0.8854.1" Category="Package" />
+    <Node Id="ToDoModel" Label="ToDoModel" Category="Project" />
+    <Node Id="EntityFramework 6.1.0" Label="EntityFramework 6.1.0" Category="Package" />
+  </Nodes>
+  <Links>
+    <Link Source="ToDoApp" Target="AngularJS.Core 1.2.19" Category="Installed Package" />
+    <Link Source="Microsoft.AspNet.WebApi 5.2.0" Target="Microsoft.AspNet.WebApi.WebHost 5.2.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 5.2.0" Target="Newtonsoft.Json 5.0.6" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 5.2.0" Target="Newtonsoft.Json 5.0.6" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.Core 5.2.0" Target="Microsoft.AspNet.WebApi.Client 5.2.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.Cors 5.2.0" Target="Microsoft.AspNet.WebApi.Core 5.2.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.Cors 5.2.0" Target="Microsoft.AspNet.Cors 5.2.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost 5.2.0" Target="Microsoft.AspNet.WebApi.Core 5.2.0" Category="Package Dependency" />
+    <Link Source="ToDoWebApi" Target="EntityFramework 6.0.0" Category="Installed Package" />
+    <Link Source="ToDoWebApi" Target="Microsoft.AspNet.WebApi 5.2.0" Category="Installed Package" />
+    <Link Source="ToDoWebApi" Target="Microsoft.AspNet.WebApi.Cors 5.2.0" Category="Installed Package" />
+    <Link Source="EntityFramework.SqlServerCompact 6.1.1" Target="Microsoft.SqlServer.Compact 4.0.8854.1" Category="Package Dependency" />
+    <Link Source="EntityFramework.SqlServerCompact 6.1.1" Target="EntityFramework 6.1.1" Category="Package Dependency" />
+    <Link Source="ToDoConsole" Target="EntityFramework.SqlServerCompact 6.1.1" Category="Installed Package" />
+    <Link Source="ToDoModel" Target="EntityFramework 6.1.0" Category="Installed Package" />
+  </Links>
+  <Categories>
+    <Category Id="Project" />
+    <Category Id="Package" />
+  </Categories>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
+      <Condition Expression="HasCategory('Project')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Package Dependency" ValueLabel="True">
+      <Condition Expression="HasCategory('Package Dependency')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>
